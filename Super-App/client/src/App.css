@@ -1,0 +1,69 @@
+
+*{
+  background-color: black;
+  color: white;
+}
+/* regstration page */
+.mainHeader{
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.left{
+  height:100vh;
+  width: 50vw;
+  background-image: url('./assets/image13.jpg');
+  background-position: 0px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.font-roboto{
+  font-family: "Roboto", sans-serif;
+}
+.imgText{
+  position: absolute;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-size: 35px;
+  background: transparent;
+  top: 70%;
+  left: 10%;
+}
+.right{
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.super-text{
+  font-family: "Single Day", cursive;
+  font-size: 3rem;
+  color: #72DB73;
+}
+.createAcc-text{
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 1px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+input{
+  background-color: #292929;
+  padding: 9px;
+  border-radius: 3px;
+  font-size: .7rem;
+  margin-top: 10px;
+}
+
+
+
+.radio-text{
+  font-family: "DM Sans", sans-serif;
+  font-size: .8rem;
+  font-weight: 300;
+}
