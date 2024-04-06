@@ -1,6 +1,9 @@
 import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const SighInPage = ({signInFormRef, setIsSighIn, signUpFormRef}) => {
+
+const SighInPage = ({signInFormRef, setIsSighIn}) => {
+    const navigate = useNavigate()
     const user = {
         email: '',
         password: '',
@@ -18,7 +21,6 @@ const SighInPage = ({signInFormRef, setIsSighIn, signUpFormRef}) => {
          setTimeout(() => {
             setIsSighIn(false);
         }, 900);
-        // signUpFormRef.current.style.top = '10%';
     }
     const sighIntHandle = (e) => {
       e.preventDefault();
@@ -34,6 +36,8 @@ const SighInPage = ({signInFormRef, setIsSighIn, signUpFormRef}) => {
         });
         if (conditions.every(condition => condition)) {
             setEdit(user);
+            navigate('/dashboard')
+            localStorage.setItem('isLogin', true);
         }
     }
     return (
