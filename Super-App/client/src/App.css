@@ -1,29 +1,33 @@
-
-*{
+* {
   background-color: black;
   color: white;
 }
+
 /* regstration page */
-.mainHeader{
+.mainHeader {
   height: 100%;
   width: 100%;
   display: flex;
 }
-.left{
-  height:100vh;
+
+.left {
+  height: 100vh;
   width: 50vw;
   background-image: url('./assets/image13.jpg');
   background-position: 0px;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.font-roboto{
+
+.font-roboto {
   font-family: "Roboto", sans-serif;
 }
-.font-DM{
+
+.font-DM {
   font-family: "DM Sans", sans-serif;
 }
-.imgText{
+
+.imgText {
   position: absolute;
   font-family: "Roboto", sans-serif;
   font-weight: 900;
@@ -32,30 +36,35 @@
   top: 70%;
   left: 10%;
 }
-.right{
+
+.right {
   width: 50vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.super-text{
+
+.super-text {
   font-family: "Single Day", cursive;
   font-size: 3rem;
   color: #72DB73;
 }
-.createAcc-text{
+
+.createAcc-text {
   font-family: "DM Sans", sans-serif;
   font-size: 1.3rem;
   font-weight: 300;
   margin-bottom: 1px;
 }
-.form{
+
+.form {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-input{
+
+input {
   background-color: #292929;
   padding: 9px;
   border-radius: 3px;
@@ -65,7 +74,7 @@ input{
 
 
 
-.radio-text{
+.radio-text {
   font-family: "DM Sans", sans-serif;
   font-size: .8rem;
   font-weight: 300;

@@ -10,7 +10,7 @@ import {
 import ProctactedRoute from './components/ProctactedRoute.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import UserData from './components/UserData.jsx';
-
+import Page404 from './components/Page404.jsx'
 
 const router = createBrowserRouter([
   {
@@ -25,10 +25,14 @@ const router = createBrowserRouter([
     path: "/user_dashboard",
     element: <ProctactedRoute Component={UserData}/>,
   },
+  {
+    path: "/:error",
+    element: <Page404/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

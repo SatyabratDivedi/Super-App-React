@@ -15,7 +15,7 @@ const Registration = () => {
     }
     const [edit, setEdit] = useState(user);
     const [select, setSelect] = useState(false);
-
+    
     const changeHandle = (e) => {
         setEdit({ ...edit, [e.target.name]: e.target.value });
     }
@@ -72,6 +72,7 @@ const Registration = () => {
                                     <div>
                                         <form onSubmit={submitHandle} className='form'>
                                             <input onChange={changeHandle} ref={borderRefs[0]} type="text" placeholder='Name' name="name" value={edit.name} />
+
                                             <span ref={errorRefs[0]} className=' hidden text-start text-[.7rem] text-red-500  max-h-3'>Field is required</span>
                                             <input onChange={changeHandle} ref={borderRefs[1]} type="email" placeholder='Email' name="email" value={edit.email} />
                                             <span ref={errorRefs[1]} className=' hidden text-start text-[.7rem] text-red-500  max-h-3'>Field is required</span>

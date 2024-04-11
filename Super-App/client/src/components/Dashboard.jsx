@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import movies from './movieGenres';
 
@@ -6,18 +6,27 @@ const Dashboard = () => {
   const [selectedMovie, setSelectedMovie] = useState([]);
   const navigate = useNavigate()
 
-
-  const boxClickHandle = (id) => {
-    const recieveData = movies.filter((item) => item.id === id)
+  const boxClickHandle = (recieveId) => {
+    const recieveData = movies.filter((movie) => movie.id === recieveId);
     const existDataIndex = selectedMovie.findIndex((item) => item == recieveData[0].name)
-    console.log(existDataIndex)
     if (existDataIndex === -1) {
-      selectedMovie.length < 6 && setSelectedMovie((prev) => [...prev, recieveData[0].name])
+      if (selectedMovie.length < 6) {
+        const updatedMovies = [...selectedMovie, recieveData[0].name];
+        setSelectedMovie(updatedMovies);
+        localStorage.setItem('items', JSON.stringify(updatedMovies));
+      }
     }
   }
 
+  useEffect(() => {
+    const getData = JSON.parse(localStorage.getItem('items')) || [];
+    setSelectedMovie(getData)
+  }, [])
+
   const removeHandler = (name) => {
-    setSelectedMovie(selectedMovie.filter((item) => item !== name))
+    const updatedMovies = selectedMovie.filter((item) => item !== name);
+    setSelectedMovie(updatedMovies);
+    localStorage.setItem('items', JSON.stringify(updatedMovies));
   }
 
   return (
@@ -30,7 +39,7 @@ const Dashboard = () => {
 
             {
               selectedMovie.map((item, i) => (
-                <div key={i} className=' my-1 flex max-w-[90%] items-center px-2 justify-between bg-[#148A08] rounded-full '>{item}
+                <div key={i} className={`my-1 flex max-w-[90%] items-center px-2 justify-between bg-[#148A08] rounded-full`}>{item}
                   <lord-icon
                     onClick={() => removeHandler(item)}
                     src="https://cdn.lordicon.com/nqtddedc.json"
@@ -43,16 +52,16 @@ const Dashboard = () => {
             }
           </div>
           <div className='  text-red-500'>Min-3 and max-6 category required</div>
-          {selectedMovie.length >= 3 && <button  onClick={() => navigate('/user_dashboard')} className=' bg-[#148A08] rounded-lg flex items-center justify-center w-[15%] translate-x-80  '>Next
-          <span className=' px-2 bg-transparent translate-y-1'>
-          <lord-icon
-              src="https://cdn.lordicon.com/vduvxizq.json"
-              trigger="hover"
-              colors="primary:#ffffff"
-              style={{width:'20px', height:'20px', backgroundColor: 'transparent'}}>
-                
-          </lord-icon>
-          </span>
+          {selectedMovie.length >= 3 && <button onClick={() => navigate('/user_dashboard')} className=' bg-[#148A08] rounded-lg flex items-center justify-center w-[15%] translate-x-80  '>Next
+            <span className=' px-2 bg-transparent translate-y-1'>
+              <lord-icon
+                src="https://cdn.lordicon.com/vduvxizq.json"
+                trigger="hover"
+                colors="primary:#ffffff"
+                style={{ width: '20px', height: '20px', backgroundColor: 'transparent' }}>
+
+              </lord-icon>
+            </span>
           </button>}
         </div>
         <div className=" flex gap-4 flex-wrap w-[40vw]">

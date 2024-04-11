@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
-const SighInPage = ({signInFormRef, setIsSighIn}) => {
+const SighInPage = ({ signInFormRef, setIsSighIn }) => {
     const navigate = useNavigate()
     const user = {
         email: '',
@@ -15,16 +15,16 @@ const SighInPage = ({signInFormRef, setIsSighIn}) => {
     const changeHandle = (e) => {
         setEdit({ ...edit, [e.target.name]: e.target.value });
     }
-    
+
     const signUpSlideHandle = () => {
         signInFormRef.current.style.top = '50%';
-         setTimeout(() => {
+        setTimeout(() => {
             setIsSighIn(false);
         }, 900);
     }
     const sighIntHandle = (e) => {
-      e.preventDefault();
-      const conditions = [edit.email, edit.password];
+        e.preventDefault();
+        const conditions = [edit.email, edit.password];
         conditions.forEach((condition, index) => {
             if (!condition) {
                 errorRefs[index].current.style.display = 'block';

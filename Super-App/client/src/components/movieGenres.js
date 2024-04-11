@@ -7,6 +7,7 @@ import pic6 from './../assets/image8.png';
 import pic7 from './../assets/image9.png';
 import pic8 from './../assets/image10.png';
 import pic9 from './../assets/image11.png';
+
 const movies = [
     {
         'id':'1',
