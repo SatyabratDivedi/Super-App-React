@@ -36,7 +36,6 @@ const WeatherComp = () => {
       const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${edit}&units=metric&appid=${API}`);
       const data = await res.json();
       if (res.ok) {
-        console.log(data);
         setCityName(edit);
         setTemp(data.main.temp);
         setWindSpeed(data.wind.speed);
