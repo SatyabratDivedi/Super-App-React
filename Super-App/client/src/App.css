@@ -1,4 +1,4 @@
-* {
+.bgBlack {
   background-color: black;
   color: white;
 }
@@ -13,7 +13,7 @@
 .left {
   height: 100vh;
   width: 50vw;
-  background-image: url('./assets/image13.jpg');
+  background-image: url("./assets/image13.jpg");
   background-position: 0px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -25,6 +25,25 @@
 
 .font-DM {
   font-family: "DM Sans", sans-serif;
+}
+.font-singleDay {
+  font-family: "Single Day", cursive;
+}
+
+.super-text {
+  font-family: "Single Day", cursive;
+  font-size: 3rem;
+  color: #72db73;
+}
+.boxShadow {
+  box-shadow: -2px -2px 4px 0px #060606, 20px 20px 80px 10px rgba(255, 255, 255, 0.25);
+}
+
+.boxShadow2 {
+  box-shadow: -6px -6px 6px rgb(252, 252, 252), 5px 5px 5px rgba(0, 0, 0, 0.07);
+}
+.box {
+  box-shadow: -2px -2px 14px 0px #060606, 20px 20px 80px 10px rgba(255, 255, 255, 0.25);
 }
 
 .imgText {
@@ -45,12 +64,6 @@
   align-items: center;
 }
 
-.super-text {
-  font-family: "Single Day", cursive;
-  font-size: 3rem;
-  color: #72DB73;
-}
-
 .createAcc-text {
   font-family: "DM Sans", sans-serif;
   font-size: 1.3rem;
@@ -68,14 +81,12 @@ input {
   background-color: #292929;
   padding: 9px;
   border-radius: 3px;
-  font-size: .7rem;
+  font-size: 0.7rem;
   margin-top: 10px;
 }
 
-
-
 .radio-text {
   font-family: "DM Sans", sans-serif;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 300;
 }

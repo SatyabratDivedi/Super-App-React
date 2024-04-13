@@ -52,7 +52,7 @@ const Registration = () => {
     }
     return (
         <>
-            <div className='mainHeader'>
+            <div className='mainHeader bgBlack'>
                 <div className="left z-10">
                     <div className='imgText'>Discover new things on <br /> Superapp</div>
                 </div>

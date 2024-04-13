@@ -9,6 +9,8 @@ const Dashboard = () => {
   const boxClickHandle = (recieveId) => {
     const recieveData = movies.filter((movie) => movie.id === recieveId);
     const existDataIndex = selectedMovie.findIndex((item) => item == recieveData[0].name)
+    console.log("existDataIndex: ", existDataIndex);
+    
     if (existDataIndex === -1) {
       if (selectedMovie.length < 6) {
         const updatedMovies = [...selectedMovie, recieveData[0].name];
@@ -31,7 +33,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className=' flex p-24'>
+      <div className=' flex p-24 bgBlack h-screen'>
         <div className=" flex flex-col gap-5 text-start w-[40vw]">
           <div className='  super-text'>Super App</div>
           <div className=' font-roboto text-[30px] w-52 font-bold '>Choose your entertainment category</div>
