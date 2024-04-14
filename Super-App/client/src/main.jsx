@@ -11,6 +11,10 @@ import ProctactedRoute from './components/ProctactedRoute.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import UserData from './components/UserData.jsx';
 import Page404 from './components/Page404.jsx'
+import NewsPage from './components/NewsPage.jsx';
+import NewsComponent from './components/NewsComponent.jsx';
+import MainNewsComp from './components/MainNewsComp.jsx';
+import NewsDetails from './components/NewsDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +32,28 @@ const router = createBrowserRouter([
   {
     path: "/:error",
     element: <Page404/>,
+  },
+  {
+    path: "/news",
+    element: <ProctactedRoute Component={NewsPage}/>,
+    children:[
+      {
+        path: "allNews",
+        element: <ProctactedRoute Component={MainNewsComp}/>,
+      },
+      {
+        path: ":category",
+        element: <ProctactedRoute Component={NewsComponent}/>,
+        children:[
+          {
+            path: ":title",
+            element: <ProctactedRoute Component={NewsDetails}/>,
+          },
+        
+        ]
+      },
+    
+    ]
   },
 ]);
 

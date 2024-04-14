@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-import allWeather from '../assets/allweather.png'
+import allWeather from "../assets/allweather.png";
 import windImg from "../assets/wind-svg-svgrepo-com.svg";
 import humidityImg from "../assets/humidity-svgrepo-com.svg";
 import clearImg from "../assets/clear.png";
-import cloudImg from '../assets/clouds.png';
-import drizzleImg from '../assets/drizzle.png';
-import snowImg from '../assets/snow.png';
-import rainImg from '../assets/rain.png';
-import mistImg from '../assets/mist.png';
-import smokeImg from '../assets/Smoke.svg'
-
+import cloudImg from "../assets/clouds.png";
+import drizzleImg from "../assets/drizzle.png";
+import snowImg from "../assets/snow.png";
+import rainImg from "../assets/rain.png";
+import mistImg from "../assets/mist.png";
+import smokeImg from "../assets/Smoke.svg";
 
 const WeatherComp = () => {
   const [edit, setEdit] = useState("");
   const [temp, setTemp] = useState(0);
   const [tempImg, setTempImg] = useState(allWeather);
-  const [wetherReport, setWetherReport] = useState('Weather Report')
+  const [wetherReport, setWetherReport] = useState("Weather Report");
   const [cityName, setCityName] = useState("City");
   const [countryName, setCountryName] = useState("Country");
   const [windSpeed, setWindSpeed] = useState(0);
@@ -80,11 +79,11 @@ const WeatherComp = () => {
             setWetherReport("Snow Weather");
         }
       } else {
-        setCityName('City Not Found')
-        setCountryName('');
-        setTemp('00');
-        setWindSpeed('00');
-        setHumidity('00');
+        setCityName("City Not Found");
+        setCountryName("");
+        setTemp("00");
+        setWindSpeed("00");
+        setHumidity("00");
         setWetherReport("Weather not found");
         setTempImg(allWeather);
       }
@@ -115,9 +114,8 @@ const WeatherComp = () => {
           </span>
         </form>
         <div className=" justify-center items-center flex mt-5">
-          
           <div className=" flex flex-col justify-center items-center boxShadow2 rounded-lg text-black p-1 w-[80%] h-[200px] bg-[#dfe3f1]">
-          <div className=" font-bold font-DM text-sm text-center ">{wetherReport}...</div>
+            <div className=" font-bold font-DM text-sm text-center ">{wetherReport}...</div>
             <div className=" flex items-center justify-around  w-full h-[50%]">
               <div className=" w-[3.6rem] bg-[#dfe3f1] boxShadow2 rounded-lg ">
                 <img src={tempImg} alt="weatherImg" />
@@ -125,7 +123,9 @@ const WeatherComp = () => {
               <div className=" bg-[#dfe3f1] p-[.8rem] boxShadow2 rounded-lg font-bold text-2xl text-blue-500"> {Math.ceil(temp)}&#8451;</div>
             </div>
             <div className=" flex justify-center items-center text-3xl  w-full h-[50%] ">
-              <div className=" font-bold font-singleDay text-3xl text-center ">{firstLetterCapital(cityName)},{countryName}</div>
+              <div className=" font-bold font-singleDay text-3xl text-center ">
+                {firstLetterCapital(cityName)},{countryName}
+              </div>
             </div>
           </div>
         </div>
