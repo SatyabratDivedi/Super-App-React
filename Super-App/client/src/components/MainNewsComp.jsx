@@ -1,27 +1,31 @@
-import React from "react";
-import { Link, Outlet, useMatch } from "react-router-dom";
-import articles from "../newsApi";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLoaderData, useMatch } from "react-router-dom";
 import defaultImg from "../assets/entertain.png";
 
 import ndtvImg from "../assets/NDTV.png";
 import favImg from "../assets/favicon.ico";
-import mintImg from '../assets/livemint.png';
-import teluguImg from '../assets/123telgu.png';
-import pinkvillaImg from '../assets/pinkvilla.png';
-import bbcImg from '../assets/bbc.png';
-import toiImg from '../assets/toi.png';
-import bLifeImg from '../assets/blife.png';
-import hTimesImg from '../assets/htimes.png';
-import quintImg from '../assets/q.png';
-import expressImg from '../assets/express.png';
-import odishaImg from '../assets/odisha.png';
-
+import mintImg from "../assets/livemint.png";
+import teluguImg from "../assets/123telgu.png";
+import pinkvillaImg from "../assets/pinkvilla.png";
+import bbcImg from "../assets/bbc.png";
+import toiImg from "../assets/toi.png";
+import bLifeImg from "../assets/blife.png";
+import hTimesImg from "../assets/htimes.png";
+import quintImg from "../assets/q.png";
+import expressImg from "../assets/express.png";
+import odishaImg from "../assets/odisha.png";
+import news18Img from "../assets/news18.png";
 
 const MainNewsComp = () => {
   const match = useMatch("/news/allNews");
+  const [articles, setArticles] = useState();
+  const data = useLoaderData();
+  useEffect(() => {
+    console.log(data);
+    setArticles(data.articles);
+  }, []);
 
   const profileImg = (name) => {
-    console.log(name);
     switch (name) {
       case "NDTV News":
         return ndtvImg;
@@ -45,6 +49,8 @@ const MainNewsComp = () => {
         return pinkvillaImg;
       case "BBC News":
         return bbcImg;
+      case "News18":
+        return news18Img;
       default:
         return favImg;
     }
@@ -58,9 +64,9 @@ const MainNewsComp = () => {
         <Outlet />
       ) : (
         <div className="px-24 py-6 flex gap-5 flex-wrap justify-start bg-black text-white ">
-          {articles.map((item) => (
+          {articles?.map((item) => (
             <Link
-              to={`/news/allNews/${item.title || 'Title is not provided from API provider'}`}
+              to={`/news/allNews/${item.title || "Title is not provided from API provider"}`}
               key={item.title}
               className=" relative hover:scale-105 duration-200 border bg-[#dfe3f1]  text-black rounded-lg w-[250px] h-[270px] ">
               <div className=" absolute shadow-xl top-[47%] left-[40%] w-[40px] bg-white  p-[.4rem] rounded-full">
@@ -70,13 +76,13 @@ const MainNewsComp = () => {
                 <div className="  h-full w-full backImg rounded-md" style={{ backgroundImage: `url(${item.urlToImage || defaultImg})` }}></div>
               </div>
               <div className=" h-1 font-medium text-[.6rem] flex justify-between px-1">
-                <span>{item.source.name?.toUpperCase().slice(0, 19) || 'Not Available'}</span>
+                <span>{item.source.name?.toUpperCase().slice(0, 19) || "Not Available"}</span>
                 <span>
                   {item.publishedAt.slice(0, 10).split("-").reverse().join("-")}, {item.publishedAt.slice(11, 19)}
                 </span>
               </div>
               <div className="  h-[100px] px-2 flex  items-center justify-center text-center">
-                <div className=" font-DM">{item.title?.slice(0, 75) + "..." || 'Title is not provided from API provider'}</div>
+                <div className=" font-DM">{item.title?.slice(0, 75) + "..." || "Title is not provided from API provider"}</div>
               </div>
             </Link>
           ))}
@@ -87,3 +93,9 @@ const MainNewsComp = () => {
 };
 
 export default MainNewsComp;
+
+export const mainNewsLoader = async () => {
+  const res = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=7e753acdd6e147029ff658f3f9f90931`);
+  const data = await res.json();
+  return data;
+};

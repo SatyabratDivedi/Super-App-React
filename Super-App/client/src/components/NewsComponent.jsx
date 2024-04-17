@@ -1,28 +1,34 @@
-import React from "react";
-import { Link, Outlet, useMatch, useParams } from "react-router-dom";
-import articles from "../newsApi";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLoaderData, useMatch, useParams } from "react-router-dom";
+
 import defaultImg from "../assets/entertain.png";
 
 import ndtvImg from "../assets/NDTV.png";
 import favImg from "../assets/favicon.ico";
-import mintImg from '../assets/livemint.png';
-import teluguImg from '../assets/123telgu.png';
-import pinkvillaImg from '../assets/pinkvilla.png';
-import bbcImg from '../assets/bbc.png';
-import toiImg from '../assets/toi.png';
-import bLifeImg from '../assets/blife.png';
-import hTimesImg from '../assets/htimes.png';
-import quintImg from '../assets/q.png';
-import expressImg from '../assets/express.png';
-import odishaImg from '../assets/odisha.png';
+import mintImg from "../assets/livemint.png";
+import teluguImg from "../assets/123telgu.png";
+import pinkvillaImg from "../assets/pinkvilla.png";
+import bbcImg from "../assets/bbc.png";
+import toiImg from "../assets/toi.png";
+import bLifeImg from "../assets/blife.png";
+import hTimesImg from "../assets/htimes.png";
+import quintImg from "../assets/q.png";
+import expressImg from "../assets/express.png";
+import odishaImg from "../assets/odisha.png";
+import news18Img from "../assets/news18.png";
 
 const NewsComponent = () => {
-  const { category } = useParams();
+  const [articles, setArticles] = useState();
   const match = useMatch("/news/:category/:title");
-  const match2 = useMatch("/news/:category");
+  const data = useLoaderData();
+  const { category } = useParams();
+
+  useEffect(() => {
+    console.log(data);
+    setArticles(data.articles);
+  }, [category]);
 
   const profileImg = (name) => {
-
     switch (name) {
       case "NDTV News":
         return ndtvImg;
@@ -46,6 +52,8 @@ const NewsComponent = () => {
         return pinkvillaImg;
       case "BBC News":
         return bbcImg;
+      case "News18":
+        return news18Img;
       default:
         return favImg;
     }
@@ -59,9 +67,9 @@ const NewsComponent = () => {
         <Outlet />
       ) : (
         <div className="px-24 py-6 flex gap-5 flex-wrap justify-start bg-black text-white ">
-          {articles.map((item) => (
+          {articles?.map((item) => (
             <Link
-            to={`/news/${category}/${item.title}`}
+              to={`/news/${category}/${item.title}`}
               key={item.title}
               className=" relative hover:scale-105 duration-200 border bg-[#dfe3f1]  text-black rounded-lg w-[250px] h-[270px] ">
               <div className=" absolute shadow-xl top-[47%] left-[40%] w-[40px] bg-white  p-[.4rem] rounded-full">
@@ -77,9 +85,7 @@ const NewsComponent = () => {
                 </span>
               </div>
               <div className="  h-[100px] px-2 flex  items-center justify-center text-center">
-                <div className=" font-DM">
-                  {item.title.slice(0, 75) + "..."}
-                </div>
+                <div className=" font-DM">{item.title.slice(0, 75) + "..."}</div>
               </div>
             </Link>
           ))}
@@ -90,3 +96,11 @@ const NewsComponent = () => {
 };
 
 export default NewsComponent;
+
+export const allNewsDataLoader = async (params) => {
+  const res = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=in&category=${params.params.category}&apiKey=7e753acdd6e147029ff658f3f9f90931`
+  );
+  const data = await res.json();
+  return data;
+};

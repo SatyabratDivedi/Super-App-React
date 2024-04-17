@@ -1,7 +1,6 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import results from "../newsApi";
-import defaultImg from '../assets/mainNews.png'
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useMatch, useNavigate, useParams } from "react-router-dom";
+import defaultImg from "../assets/mainNews.png";
 
 import ndtvImg from "../assets/NDTV.png";
 import favImg from "../assets/favicon.ico";
@@ -15,13 +14,23 @@ import hTimesImg from "../assets/htimes.png";
 import quintImg from "../assets/q.png";
 import expressImg from "../assets/express.png";
 import odishaImg from "../assets/odisha.png";
+import news18Img from "../assets/news18.png";
 
 const NewsDetails = () => {
   const navigate = useNavigate();
+  const match = useMatch("/news/:category/:title");
   const { title } = useParams();
 
+  const [articles, setArticles] = useState();
+  const data = useLoaderData();
+
+
+  useEffect(() => {
+    setArticles(data.articles);
+    console.log(data)
+  }, []);
+
   const profileImg = (name) => {
-    console.log(name);
     switch (name) {
       case "NDTV News":
         return ndtvImg;
@@ -45,29 +54,31 @@ const NewsDetails = () => {
         return pinkvillaImg;
       case "BBC News":
         return bbcImg;
+      case "News18":
+        return news18Img;
       default:
         return favImg;
     }
   };
   return (
     <>
-      {results.map((item) => {
+      {articles?.map((item) => {
         if (item.title === title) {
           return (
             <div key={item.title} className="  flex p-5 h-[71vh] relative justify-between items-start bg-black text-white">
-               <button onClick={() => navigate(-1)} className="absolute top-[5%] bg-[#9F94FF] p-1 rounded-2xl  left-[2%]">
-              <span className=" text-black px-1 ">
-                <lord-icon
-                  src="https://cdn.lordicon.com/alinocam.json"
-                  trigger="hover"
-                  colors="primary:black"
-                  style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
-                Back
-              </span>
-            </button>
-              <img className=" w-[50%] " src={item.urlToImage || defaultImg} alt={item.title} />
-              <div className=" p-5 ">
-                <h1 className=" text-xl font-mono text text-[#72db73]  ">{item.title || 'Title is not provided from API provider'}</h1>
+              <button onClick={() => navigate(-1)} className="absolute top-[5%] bg-[#9F94FF] p-1 rounded-2xl  left-[2%]">
+                <span className=" text-black px-1 ">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/alinocam.json"
+                    trigger="hover"
+                    colors="primary:black"
+                    style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                  Back
+                </span>
+              </button>
+              <img className=" w-[400px] h-[400px] rounded-md " src={item.urlToImage || defaultImg} alt={item.title} />
+              <div className=" p-5 px-24 ">
+                <h1 className=" text-xl font-mono text text-[#72db73]  ">{item.title || "Title is not provided from API provider"}</h1>
                 <div className="  font-medium text-[.8rem] flex justify-between px-1">
                   <span className=" flex justify-center items-center gap-3">
                     <div className=" w-[40px] bg-white  p-[.4rem] rounded-full">
@@ -79,8 +90,8 @@ const NewsDetails = () => {
                     {item.publishedAt.slice(0, 10).split("-").reverse().join("-")}, {item.publishedAt.slice(11, 19)}
                   </span>
                 </div>
-                <p className=" mt-5">{item.description || 'Description is not provided by API provider'}</p>
-                <div className=" float-right">
+                <p className=" mt-5">{item.description || "Description is not provided by API provider"}</p>
+                <div className=" mt-9 float-right">
                   <a href={item.url} target="_blank" className=" mt-3 text-black bg-[#9F94FF] p-3 rounded-2xl">
                     View Details
                     <span className=" px-2 ">
@@ -101,3 +112,10 @@ const NewsDetails = () => {
 };
 
 export default NewsDetails;
+
+export const newsDetailsLoader =async({params})=>{
+  const res = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${params.category}&apiKey=7e753acdd6e147029ff658f3f9f90931`);
+  const data = await res.json();
+  return data;
+}
+

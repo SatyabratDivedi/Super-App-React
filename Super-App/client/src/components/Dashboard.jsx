@@ -37,7 +37,7 @@ const Dashboard = () => {
       <div className=" flex p-24 bgBlack h-screen">
         <div className=" flex flex-col gap-5 text-start w-[40vw]">
           <div className="  super-text">Super App</div>
-          <div className=" font-roboto text-[30px] w-52 font-bold ">Choose your entertainment category</div>
+          <div className=" font-roboto text-[30px] w-52 font-bold ">Choose your news category</div>
           <div className=" grid grid-cols-2 w-[50%]  ">
             {selectedMovie.map((item, i) => (
               <div key={i} className={`my-1 flex max-w-[90%] items-center px-2 justify-between bg-[#148A08] rounded-full`}>
@@ -74,7 +74,7 @@ const Dashboard = () => {
                 onClick={() => boxClickHandle(movie.id)}
                 key={movie.id}
                 style={{ backgroundColor: movie.bgCol }}
-                className={`cursor-pointer active:border-2  w-[130px] h-[130px] rounded-xl p-3 flex flex-col`}>
+                className={`cursor-pointer active:border-2 hover:scale-105 duration-200  w-[130px] h-[130px] rounded-xl p-3 flex flex-col`}>
                 <div className=" bg-transparent">
                   <span className=" bg-transparent font-DM">{movie.name}</span>
                   <div className=" translate-y-5 rounded-lg h-[60px] ">

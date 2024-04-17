@@ -24,7 +24,7 @@ const UserData = () => {
       <div className="w-screen h-screen flex p-20 bgBlack">
         <div className=" w-[70%]   p-10 flex flex-col gap-5">
           <div className="  bg-[#5746EA] p-10 flex rounded-2xl relative ">
-            <button onClick={() => navigate("/dashboard")} className="absolute top-[2%] bg-[#9F94FF] p-1 rounded-2xl  right-[89%]">
+            <button onClick={() => navigate("/dashboard")} className="absolute duration-200 active:scale-95 top-[2%] bg-[#9F94FF] p-1 rounded-2xl  right-[89%]">
               <span className=" text-black px-1 ">
                 <lord-icon
                   src="https://cdn.lordicon.com/alinocam.json"
@@ -34,7 +34,7 @@ const UserData = () => {
                 Back
               </span>
             </button>
-            <img className="w-[22%]" src={img} alt="UserImg" />
+            <img className="w-[22%] mt-5" src={img} alt="UserImg" />
             <div className=" flex flex-col gap-6 py-4 px-8 ">
               <span className=" text-5xl font-bold super-text">Satyabrat Divedi</span>
               <span className=" text-xl font-bold font-DM">satyabrat@gmail.com</span>
@@ -47,7 +47,7 @@ const UserData = () => {
                   ))}
               </div>
             </div>
-            <button className="absolute top-[80%] text-black bg-[#9F94FF] p-3 rounded-2xl  right-[8%]">
+            <Link to={'/user_dashboard/user'} className="absolute top-[80%] text-black bg-[#9F94FF] p-3 rounded-2xl  right-[8%] duration-200 active:scale-95">
               View Profile
               <span className=" px-2 ">
                 <lord-icon
@@ -55,20 +55,20 @@ const UserData = () => {
                   trigger="hover"
                   style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
               </span>
-            </button>
+            </Link>
           </div>
           <div className=" bg-[#101744] p-3 py-5 flex justify-between rounded-2xl  ">
             <div className=" flex justify-evenly gap-2">
               {data.map((name) => {
                 const imageUrl = imgPrint(name);
                 return imageUrl ? (
-                  <Link key={name}>
+                  <Link to={`/news/${name}`} key={name}>
                     <img className=" w-[5.4rem] hover:scale-105 duration-200 cursor-pointer rounded-md" src={imageUrl} alt={name} />
                   </Link>
                 ) : null;
               })}
             </div>
-            <button onClick={() => navigate("/news/allNews")} className="px-1 text-end  text-black boxShadow bg-[#9F94FF] rounded-xl">
+            <Link to="/news/allNews" className="px-1 text-end flex items-center  text-black boxShadow bg-[#9F94FF] rounded-xl">
               All News
               <span className=" px-1 ">
                 <lord-icon
@@ -76,7 +76,7 @@ const UserData = () => {
                   trigger="hover"
                   style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
               </span>
-            </button>
+            </Link>
           </div>
         </div>
         <div className="w-[30%]  p-10">
