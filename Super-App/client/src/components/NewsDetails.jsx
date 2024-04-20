@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useMatch, useNavigate, useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import defaultImg from "../assets/mainNews.png";
 
 import ndtvImg from "../assets/NDTV.png";
@@ -16,19 +16,24 @@ import expressImg from "../assets/express.png";
 import odishaImg from "../assets/odisha.png";
 import news18Img from "../assets/news18.png";
 
+import { useDispatch, useSelector } from "react-redux";
+
 const NewsDetails = () => {
   const navigate = useNavigate();
-  const match = useMatch("/news/:category/:title");
-  const { title } = useParams();
-
+  const { title, category } = useParams();
   const [articles, setArticles] = useState();
-  const data = useLoaderData();
 
+  const receivePage = useSelector((state) => state.page.value);
+
+  const fetchData = async () => {
+    const res = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=7e753acdd6e147029ff658f3f9f90931&page=${receivePage}`);
+    const data = await res.json();
+    setArticles(data.articles);
+  };
 
   useEffect(() => {
-    setArticles(data.articles);
-    console.log(data)
-  }, []);
+    fetchData();
+  }, [receivePage]);
 
   const profileImg = (name) => {
     switch (name) {
@@ -76,7 +81,7 @@ const NewsDetails = () => {
                   Back
                 </span>
               </button>
-              <img className=" w-[400px] h-[400px] rounded-md " src={item.urlToImage || defaultImg} alt={item.title} />
+              <img className=" w-[500px] h-[400px] rounded-md " src={item.urlToImage || defaultImg} alt={item.title} />
               <div className=" p-5 px-24 ">
                 <h1 className=" text-xl font-mono text text-[#72db73]  ">{item.title || "Title is not provided from API provider"}</h1>
                 <div className="  font-medium text-[.8rem] flex justify-between px-1">
@@ -112,10 +117,3 @@ const NewsDetails = () => {
 };
 
 export default NewsDetails;
-
-export const newsDetailsLoader =async({params})=>{
-  const res = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${params.category}&apiKey=7e753acdd6e147029ff658f3f9f90931`);
-  const data = await res.json();
-  return data;
-}
-

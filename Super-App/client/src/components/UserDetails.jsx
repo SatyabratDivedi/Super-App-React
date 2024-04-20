@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import img from "../assets/image14.png";
 
 const UserDetails = () => {
@@ -10,11 +10,19 @@ const UserDetails = () => {
   const deleteHandle=()=>{
     console.log("delete clicked")
   }
+  const logoutHandle = () => {
+    const cnf =  confirm("Are you sure you want to log Out");
+    console.log(cnf)
+    if (cnf) {
+      localStorage.removeItem("isLogin");
+      navigate('/');
+    }
+  };
   return (
     <>
       <div className=" bg-black text-white h-screen p-20">
         <div className="  bg-[#5746EA] p-10 flex rounded-2xl relative ">
-          <button onClick={() => navigate("/user_dashboard")} className="absolute top-[2%] bg-[#9F94FF] p-1 rounded-2xl duration-200 active:scale-95  right-[89%]">
+          <button onClick={() => navigate(-1)} className="absolute top-[2%] bg-[#9F94FF] p-1 rounded-2xl duration-200 active:scale-95  right-[89%]">
             <span className=" text-black px-1 ">
               <lord-icon
                 src="https://cdn.lordicon.com/alinocam.json"
@@ -51,15 +59,15 @@ const UserDetails = () => {
               </span>
             </button>
           </div>
-          <Link to={"/user_dashboard/user"} className="absolute top-[80%] text-black bg-[#9F94FF] p-3 rounded-2xl  right-[8%]">
-            LogOut
+          <span onClick={logoutHandle} className="absolute top-[80%] text-black bg-[#9F94FF] cursor-pointer rounded-2xl  right-[8%]">
             <span className=" px-2 ">
               <lord-icon
-                src="https://cdn.lordicon.com/vduvxizq.json"
+                src="https://cdn.lordicon.com/ysopsmtv.json"
                 trigger="hover"
-                style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                colors="primary:white"
+                style={{ width: "30px", height: "30px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
             </span>
-          </Link>
+          </span>
         </div>
       </div>
     </>
