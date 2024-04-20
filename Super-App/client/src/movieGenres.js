@@ -3,7 +3,7 @@ import pic2 from "./assets/entertain.png";
 import pic3 from "./assets/technology.png";
 import pic4 from "./assets/science.png";
 import pic5 from "./assets/sports.png";
-import pic6 from "./assets/health (1).png";
+import pic6 from "./assets/health.png";
 import pic7 from "./assets/politics.png";
 import pic8 from "./assets/lifestyle.png";
 import pic9 from "./assets/education.png";

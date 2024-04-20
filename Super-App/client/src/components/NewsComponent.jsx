@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useMatch, useParams } from "react-router-dom";
 
-import defaultImg from "../assets/entertain.png";
+import businessImg from "../assets/business.png";
+import entertainmentImg from "../assets/entertain.png";
+import technologyImg from "../assets/technology.png";
+import scienceImg from "../assets/science.png";
+import sportsImg from "../assets/sports.png";
+import healthImg from "../assets/health.png";
+import politicsImg from "../assets/politics.png";
+import educationImg from "../assets/education.png";
 
 import ndtvImg from "../assets/NDTV.png";
 import favImg from "../assets/favicon.ico";
@@ -16,17 +23,22 @@ import quintImg from "../assets/q.png";
 import expressImg from "../assets/express.png";
 import odishaImg from "../assets/odisha.png";
 import news18Img from "../assets/news18.png";
+import moneycontrollImg from "../assets/moneycontroll.jpg";
+import theHinduImg from "../assets/theHindu.png";
+import indiaToday from "../assets/indiatoday.png";
+import abpLive from "../assets/ABP_LIVE.webp";
+import TeamBHP from "../assets/Team-BHP.png";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../store/pageSlice";
 
 const NewsComponent = () => {
   const [articles, setArticles] = useState();
   const [articlesLength, setArticlesLength] = useState();
+  const [defaultImg, setDefaultImg] = useState();
   const match = useMatch("/news/:category/:title");
   const { category } = useParams();
   const receivePage = useSelector((state) => state.page.value);
   const dispatch = useDispatch();
-  console.log(receivePage);
 
   const [edit, setEdit] = useState("");
 
@@ -41,19 +53,49 @@ const NewsComponent = () => {
     const data = await res.json();
     setArticles(data.articles);
     setArticlesLength(data.totalResults);
+    console.log(articles)
   };
 
   const mainArticleLength = Math.ceil(articlesLength / 20);
 
   useEffect(() => {
     fetchNews();
+    console.log(category)
     window.scrollTo(0, 0);
+    switch (category) {
+      case "politics":
+        return setDefaultImg(politicsImg);
+      case "Health":
+        return setDefaultImg(healthImg);
+      case "Sports":
+        return setDefaultImg(sportsImg);
+      case "Science":
+        return setDefaultImg(scienceImg);
+      case "business":
+        return setDefaultImg(businessImg);
+      case "entertainment":
+        return setDefaultImg(entertainmentImg);
+      case "Technology":
+        return setDefaultImg(technologyImg);
+        default:
+          return setDefaultImg(educationImg);
+    }
   }, [edit, category, receivePage]);
 
   const profileImg = (name) => {
     switch (name) {
       case "NDTV News":
         return ndtvImg;
+      case "The Hindu":
+        return theHinduImg;
+      case "Moneycontrol":
+        return moneycontrollImg;
+      case "India Today":
+        return indiaToday;
+      case "Abplive.com":
+        return abpLive;
+      case "Team-BHP":
+        return TeamBHP;
       case "Livemint":
         return mintImg;
       case "Odishatv.in":
@@ -111,10 +153,10 @@ const NewsComponent = () => {
                 <div className=" overflow-hidden p-1 h-[150px] z-10">
                   <div className="  h-full w-full backImg rounded-md" style={{ backgroundImage: `url(${item.urlToImage || defaultImg})` }}></div>
                 </div>
-                <div className=" h-[20px] textSmall font-medium flex bg-red-400 items-center justify-between px-1">
-                  <span className="">{item.source.name.toUpperCase().slice(0, 19)}</span>
-                  <span className=" text-[2px]">
-                    {item.publishedAt.slice(0, 10).split("-").reverse().join("-")}, {item.publishedAt.slice(11, 19)}
+                <div className="text-[.6rem] font-bold flex items-center justify-between px-1">
+                  <span className=" ">{item.source.name.toUpperCase().slice(0, 19)}</span>
+                  <span className=" ">
+                    {item.publishedAt.slice(0, 10).split("-").reverse().join("-")}, {item.publishedAt.slice(11, 16)}
                   </span>
                 </div>
                 <div className="  h-[100px] px-2 flex  items-center justify-center text-center">

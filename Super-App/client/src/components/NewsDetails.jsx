@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 import defaultImg from "../assets/mainNews.png";
 
+import businessImg from "../assets/business.png";
+import entertainmentImg from "../assets/entertain.png";
+import technologyImg from "../assets/technology.png";
+import scienceImg from "../assets/science.png";
+import sportsImg from "../assets/sports.png";
+import healthImg from "../assets/health.png";
+import politicsImg from "../assets/politics.png";
+import educationImg from "../assets/education.png";
+
 import ndtvImg from "../assets/NDTV.png";
 import favImg from "../assets/favicon.ico";
 import mintImg from "../assets/livemint.png";
@@ -15,13 +24,19 @@ import quintImg from "../assets/q.png";
 import expressImg from "../assets/express.png";
 import odishaImg from "../assets/odisha.png";
 import news18Img from "../assets/news18.png";
+import moneycontrollImg from "../assets/moneycontroll.jpg";
+import theHinduImg from "../assets/theHindu.png";
+import indiaToday from "../assets/indiatoday.png";
+import abpLive from "../assets/ABP_LIVE.webp";
+import TeamBHP from "../assets/Team-BHP.png";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const NewsDetails = () => {
   const navigate = useNavigate();
   const { title, category } = useParams();
   const [articles, setArticles] = useState();
+  const [defaultImg, setDefaultImg] = useState();
 
   const receivePage = useSelector((state) => state.page.value);
 
@@ -33,12 +48,41 @@ const NewsDetails = () => {
 
   useEffect(() => {
     fetchData();
+    switch (category) {
+      case "politics":
+        return setDefaultImg(politicsImg);
+      case "Health":
+        return setDefaultImg(healthImg);
+      case "Sports":
+        return setDefaultImg(sportsImg);
+      case "Science":
+        return setDefaultImg(scienceImg);
+      case "business":
+        return setDefaultImg(businessImg);
+      case "entertainment":
+        return setDefaultImg(entertainmentImg);
+      case "Technology":
+        return setDefaultImg(technologyImg);
+        default:
+          return setDefaultImg(educationImg);
+    }
   }, [receivePage]);
+
 
   const profileImg = (name) => {
     switch (name) {
       case "NDTV News":
         return ndtvImg;
+        case "The Hindu":
+          return theHinduImg;
+        case "Moneycontrol":
+          return moneycontrollImg;
+        case "India Today":
+          return indiaToday;
+        case "Abplive.com":
+          return abpLive;
+        case "Team-BHP":
+          return TeamBHP;
       case "Livemint":
         return mintImg;
       case "Odishatv.in":

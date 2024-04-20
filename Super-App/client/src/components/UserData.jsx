@@ -68,7 +68,7 @@ const UserData = () => {
                 ) : null;
               })}
             </div>
-            <Link to="/news/allNews" className="px-1 text-end flex items-center  text-black boxShadow bg-[#9F94FF] rounded-xl">
+            <Link to="/news/politics" className="px-1 text-end flex items-center  text-black boxShadow bg-[#9F94FF] rounded-xl">
               All News
               <span className=" px-1 ">
                 <lord-icon
