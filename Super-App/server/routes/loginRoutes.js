@@ -37,7 +37,7 @@ route.post("/login", async (req, res) => {
     if (findEmail) {
       if (findEmail.password === password) {
         console.log("successfully login");
-        return res.status(202).json("email and password matched successfully");
+        return res.status(202).json({ msg: "successfully login", user: findEmail });
       }
       console.log("password is wrong");
       res.status(404).json("password is wrong");
