@@ -29,5 +29,5 @@ app.use('/api', (req, res)=>{
 })
 
 app.use('/', (req, res)=>{
-    res.send('hello user has login successfully');
+    res.send('hello user');
 })
