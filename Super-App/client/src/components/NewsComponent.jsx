@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, Outlet, useMatch, useParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, Outlet, useMatch, useParams} from "react-router-dom";
 
 import businessImg from "../assets/business.png";
 import entertainmentImg from "../assets/entertain.png";
@@ -28,15 +28,16 @@ import theHinduImg from "../assets/theHindu.png";
 import indiaToday from "../assets/indiatoday.png";
 import abpLive from "../assets/ABP_LIVE.webp";
 import TeamBHP from "../assets/Team-BHP.png";
-import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../store/pageSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {decrement, increment} from "../store/pageSlice";
+import toast from "react-hot-toast";
 
 const NewsComponent = () => {
   const [articles, setArticles] = useState();
   const [articlesLength, setArticlesLength] = useState();
   const [defaultImg, setDefaultImg] = useState();
   const match = useMatch("/news/:category/:title");
-  const { category } = useParams();
+  const {category} = useParams();
   const receivePage = useSelector((state) => state.page.value);
   const dispatch = useDispatch();
 
@@ -47,20 +48,24 @@ const NewsComponent = () => {
   };
 
   const fetchNews = async () => {
-    const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?q=${edit}&country=in&category=${category}&apiKey=7e753acdd6e147029ff658f3f9f90931&page=${receivePage}`
-    );
+    const res = await fetch(`https://newsapi.org/v2/top-headlines?q=${edit}&country=in&category=${category}&apiKey=7e753acdd6e147029ff658f3f9f90931&page=${receivePage}`);
     const data = await res.json();
     setArticles(data.articles);
     setArticlesLength(data.totalResults);
-    console.log(articles)
   };
 
   const mainArticleLength = Math.ceil(articlesLength / 20);
 
   useEffect(() => {
     fetchNews();
-    console.log(category)
+
+    const myPromise = fetchNews();
+
+    toast.promise(myPromise, {
+      loading: "Loading",
+      success: "Got the data",
+      error: "Error when fetching",
+    });
     window.scrollTo(0, 0);
     switch (category) {
       case "politics":
@@ -77,8 +82,8 @@ const NewsComponent = () => {
         return setDefaultImg(entertainmentImg);
       case "Technology":
         return setDefaultImg(technologyImg);
-        default:
-          return setDefaultImg(educationImg);
+      default:
+        return setDefaultImg(educationImg);
     }
   }, [edit, category, receivePage]);
 
@@ -143,15 +148,12 @@ const NewsComponent = () => {
           </div>
           <div className="px-24 py-6 flex gap-5 flex-wrap justify-around bg-black text-white ">
             {articles?.map((item) => (
-              <Link
-                to={`/news/${category}/${item.title}`}
-                key={item.title}
-                className=" relative hover:scale-105 duration-200 border bg-[#dfe3f1]  text-black rounded-lg w-[250px] h-[270px] ">
+              <Link to={`/news/${category}/${item.title}`} key={item.title} className=" relative hover:scale-105 duration-200 border bg-[#dfe3f1]  text-black rounded-lg w-[250px] h-[270px] ">
                 <div className=" absolute shadow-xl top-[47%] left-[40%] w-[40px] bg-white  p-[.4rem] rounded-full">
                   <img className=" rounded-2xl" src={profileImg(item.source.name)} alt="" />
                 </div>
                 <div className=" overflow-hidden p-1 h-[150px] z-10">
-                  <div className="  h-full w-full backImg rounded-md" style={{ backgroundImage: `url(${item.urlToImage || defaultImg})` }}></div>
+                  <div className="  h-full w-full backImg rounded-md" style={{backgroundImage: `url(${item.urlToImage || defaultImg})`}}></div>
                 </div>
                 <div className="text-[.6rem] font-bold flex items-center justify-between px-1">
                   <span className=" ">{item.source.name.toUpperCase().slice(0, 19)}</span>
@@ -165,22 +167,20 @@ const NewsComponent = () => {
               </Link>
             ))}
           </div>
+          <div className=" bg-black   px-24 flex justify-between">
+            <button disabled={receivePage <= 1} onClick={() => dispatch(decrement())} className={` ${receivePage <= 1 ? "bg-red-400" : "bg-blue-400"} border rounded-md px-2 my-3`}>
+              Previous
+            </button>
+            <button
+              disabled={mainArticleLength <= receivePage}
+              onClick={() => dispatch(increment())}
+              className={` ${mainArticleLength <= receivePage ? "bg-red-400" : "bg-blue-400"}  border rounded-md px-2 my-3`}
+            >
+              Next
+            </button>
+          </div>
         </div>
       )}
-      <div className=" bg-black   px-24 flex justify-between">
-        <button
-          disabled={receivePage <= 1}
-          onClick={() => dispatch(decrement())}
-          className={` ${receivePage <= 1 ? "bg-red-400" : "bg-blue-400"} border rounded-md px-2 my-3`}>
-          Previous
-        </button>
-        <button
-          disabled={mainArticleLength <= receivePage}
-          onClick={() => dispatch(increment())}
-          className={` ${mainArticleLength <= receivePage ? "bg-red-400" : "bg-blue-400"}  border rounded-md px-2 my-3`}>
-          Next
-        </button>
-      </div>
     </>
   );
 };

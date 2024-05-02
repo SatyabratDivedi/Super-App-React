@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ProctactedRoute from "./components/ProctactedRoute.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import UserData from "./components/UserData.jsx";
@@ -13,8 +13,9 @@ import NewsComponent from "./components/NewsComponent.jsx";
 import MainNewsComp from "./components/MainNewsComp.jsx";
 import NewsDetails from "./components/NewsDetails.jsx";
 import UserDetails from "./components/UserDetails.jsx";
-import { store } from "./store/store.js";
-import { Provider } from "react-redux";
+import {store} from "./store/store.js";
+import {Provider} from "react-redux";
+import {Toaster} from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
+    <Toaster position="top-right" reverseOrder={true} />
     <RouterProvider router={router} />
   </Provider>
 );

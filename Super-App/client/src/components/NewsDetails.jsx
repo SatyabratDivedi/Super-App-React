@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useMatch, useNavigate, useParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useMatch, useNavigate, useParams} from "react-router-dom";
 import defaultImg from "../assets/mainNews.png";
 
 import businessImg from "../assets/business.png";
@@ -30,11 +30,12 @@ import indiaToday from "../assets/indiatoday.png";
 import abpLive from "../assets/ABP_LIVE.webp";
 import TeamBHP from "../assets/Team-BHP.png";
 
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
+import toast from "react-hot-toast";
 
 const NewsDetails = () => {
   const navigate = useNavigate();
-  const { title, category } = useParams();
+  const {title, category} = useParams();
   const [articles, setArticles] = useState();
   const [defaultImg, setDefaultImg] = useState();
 
@@ -48,6 +49,13 @@ const NewsDetails = () => {
 
   useEffect(() => {
     fetchData();
+    const myPromise = fetchData();
+    toast.promise(myPromise, {
+      loading: "Loading",
+      success: "Got the data",
+      error: "Error when fetching",
+    });
+
     switch (category) {
       case "politics":
         return setDefaultImg(politicsImg);
@@ -63,26 +71,25 @@ const NewsDetails = () => {
         return setDefaultImg(entertainmentImg);
       case "Technology":
         return setDefaultImg(technologyImg);
-        default:
-          return setDefaultImg(educationImg);
+      default:
+        return setDefaultImg(educationImg);
     }
   }, [receivePage]);
-
 
   const profileImg = (name) => {
     switch (name) {
       case "NDTV News":
         return ndtvImg;
-        case "The Hindu":
-          return theHinduImg;
-        case "Moneycontrol":
-          return moneycontrollImg;
-        case "India Today":
-          return indiaToday;
-        case "Abplive.com":
-          return abpLive;
-        case "Team-BHP":
-          return TeamBHP;
+      case "The Hindu":
+        return theHinduImg;
+      case "Moneycontrol":
+        return moneycontrollImg;
+      case "India Today":
+        return indiaToday;
+      case "Abplive.com":
+        return abpLive;
+      case "Team-BHP":
+        return TeamBHP;
       case "Livemint":
         return mintImg;
       case "Odishatv.in":
@@ -111,51 +118,55 @@ const NewsDetails = () => {
   };
   return (
     <>
-      {articles?.map((item) => {
-        if (item.title === title) {
-          return (
-            <div key={item.title} className="  flex p-5 h-[71vh] relative justify-between items-start bg-black text-white">
-              <button onClick={() => navigate(-1)} className="absolute top-[5%] bg-[#9F94FF] p-1 rounded-2xl  left-[2%]">
-                <span className=" text-black px-1 ">
-                  <lord-icon
-                    src="https://cdn.lordicon.com/alinocam.json"
-                    trigger="hover"
-                    colors="primary:black"
-                    style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
-                  Back
-                </span>
-              </button>
-              <img className=" w-[500px] h-[400px] rounded-md " src={item.urlToImage || defaultImg} alt={item.title} />
-              <div className=" p-5 px-24 ">
-                <h1 className=" text-xl font-mono text text-[#72db73]  ">{item.title || "Title is not provided from API provider"}</h1>
-                <div className="  font-medium text-[.8rem] flex justify-between px-1">
-                  <span className=" flex justify-center items-center gap-3">
-                    <div className=" w-[40px] bg-white  p-[.4rem] rounded-full">
-                      <img className=" rounded-2xl" src={profileImg(item.source.name)} alt="" />
-                    </div>
-                    {item.source.name.toUpperCase().slice(0, 19)}
+      <div className="bg-black h-[78vh]">
+        {articles?.map((item) => {
+          if (item.title === title) {
+            return (
+              <div key={item.title} className="  flex p-5 h-[78vh] relative justify-between items-start bg-black text-white">
+                <button onClick={() => navigate(-1)} className="absolute top-[5%] bg-[#9F94FF] p-1 rounded-2xl  left-[2%]">
+                  <span className=" text-black px-1 ">
+                    <lord-icon
+                      src="https://cdn.lordicon.com/alinocam.json"
+                      trigger="hover"
+                      colors="primary:black"
+                      style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}
+                    ></lord-icon>
+                    Back
                   </span>
-                  <span>
-                    {item.publishedAt.slice(0, 10).split("-").reverse().join("-")}, {item.publishedAt.slice(11, 19)}
-                  </span>
-                </div>
-                <p className=" mt-5">{item.description || "Description is not provided by API provider"}</p>
-                <div className=" mt-9 float-right">
-                  <a href={item.url} target="_blank" className=" mt-3 text-black bg-[#9F94FF] p-3 rounded-2xl">
-                    View Details
-                    <span className=" px-2 ">
-                      <lord-icon
-                        src="https://cdn.lordicon.com/vduvxizq.json"
-                        trigger="hover"
-                        style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                </button>
+                <img className=" w-[500px] h-[400px] rounded-md " src={item.urlToImage || defaultImg} alt={item.title} />
+                <div className=" p-5 px-24 ">
+                  <h1 className=" text-xl font-mono text text-[#72db73]  ">{item.title || "Title is not provided from API provider"}</h1>
+                  <div className="  font-medium text-[.8rem] flex justify-between px-1">
+                    <span className=" flex justify-center items-center gap-3">
+                      <div className=" w-[40px] bg-white  p-[.4rem] rounded-full">
+                        <img className=" rounded-2xl" src={profileImg(item.source.name)} alt="" />
+                      </div>
+                      {item.source.name.toUpperCase().slice(0, 19)}
                     </span>
-                  </a>
+                    <span>
+                      {item.publishedAt.slice(0, 10).split("-").reverse().join("-")}, {item.publishedAt.slice(11, 19)}
+                    </span>
+                  </div>
+                  <p className=" mt-5">{item.description || "Description is not provided by API provider"}</p>
+                  <div className=" mt-9 float-right">
+                    <a href={item.url} target="_blank" className=" mt-3 text-black bg-[#9F94FF] p-3 rounded-2xl">
+                      View Details
+                      <span className=" px-2 ">
+                        <lord-icon
+                          src="https://cdn.lordicon.com/vduvxizq.json"
+                          trigger="hover"
+                          style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}
+                        ></lord-icon>
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        }
-      })}
+            );
+          }
+        })}
+      </div>
     </>
   );
 };

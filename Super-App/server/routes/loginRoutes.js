@@ -62,7 +62,7 @@ route.put("/update/:id", async (req, res) => {
   const id = req.params.id;
   const updateData = req.body;
 try {
-    const findId = await user.findById({ id });
+    const findId = await user.findById(id);
     if (findId) {
       const updatedUser = await user.findByIdAndUpdate(id, updateData, { new: true });
       console.log("password has updated");
