@@ -1,14 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import img from "../assets/image14.png";
 
 const UserDetails = () => {
   const navigate = useNavigate();
-  const UpdateHandle = () => {
-    console.log("update clicked");
+
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const getData = localStorage.getItem("items");
+  const parseData = JSON.parse(getData);
+
+  const fetchUser = async () => {
+    const res = await fetch(`https://super-app-7dz2.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
+    const data = await res.json();
+    console.log(data.data);
+    setName(data.data.name);
+    setEmail(data.data.email);
+    setPassword(data.data.password);
   };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+
   const deleteHandle=()=>{
-    console.log("delete clicked")
+    const cnf =  confirm("Are you sure you want to delete your account");
+    console.log(cnf)
+    if (cnf) {
+      fetch(`https://super-app-7dz2.onrender.com/api/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data === "user has deleted") {
+            localStorage.removeItem("isLogin");
+            navigate('/');
+          }
+        });
+    }
   }
   const logoutHandle = () => {
     const cnf =  confirm("Are you sure you want to log Out");
@@ -34,20 +71,10 @@ const UserDetails = () => {
           </button>
           <img className="w-[20%] pt-5" src={img} alt="UserImg" />
           <div className=" flex flex-col gap-6 py-4 px-8 ">
-            <span className=" text-5xl font-bold super-text">Satyabrat Divedi</span>
-            <span className=" text-xl font-bold font-DM">Email: satyabrat@gmail.com</span>
-            <span className=" text-xl font-bold font-DM">Password: 12345</span>
+            <span className=" text-5xl font-bold super-text">{name}</span>
+            <span className=" text-xl font-bold font-DM">Email: {email}</span>
+            <span className=" text-xl font-bold font-DM">Password: {password}</span>
 
-            <button onClick={UpdateHandle} className=" duration-200 active:scale-95 bg-[#9F94FF] p-1 rounded-2xl">
-              <span className=" text-black px-1 ">
-                <lord-icon
-                  src="https://cdn.lordicon.com/uwbjfiwe.json"
-                  trigger="hover"
-                  colors="primary:black"
-                  style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
-                You Can Update Your Details
-              </span>
-              </button>
             <button onClick={deleteHandle} className=" duration-200 active:scale-95 bg-[#f59090] p-1 text-red-800 rounded-2xl">
               <span className=" px-1 text-red-600 ">
                 <lord-icon
