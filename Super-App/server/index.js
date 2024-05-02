@@ -6,7 +6,7 @@ import route from './routes/loginRoutes.js';
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: 'https://super-app-7dz2.onrender.com'
 }));
 app.use(express.json());
 dotenv.config();

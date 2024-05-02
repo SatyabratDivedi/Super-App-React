@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import img from "../assets/image14.png";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import WeatherComp from "./WeatherComp";
 import movies from "./../movieGenres.js";
 
 const UserData = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const getData = localStorage.getItem("items");
   const parseData = JSON.parse(getData);
 
+  const fetchUser = async () => {
+    const res = await fetch(`https://super-app-7dz2.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
+    const data = await res.json();
+    setName(data.data.name);
+    setEmail(data.data.email);
+  };
+
   useEffect(() => {
+    fetchUser();
     setData(parseData);
   }, []);
 
@@ -30,14 +40,15 @@ const UserData = () => {
                   src="https://cdn.lordicon.com/alinocam.json"
                   trigger="hover"
                   colors="primary:black"
-                  style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                  style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}
+                ></lord-icon>
                 Back
               </span>
             </button>
             <img className="w-[22%] mt-5" src={img} alt="UserImg" />
             <div className=" flex flex-col gap-6 py-4 px-8 ">
-              <span className=" text-5xl font-bold super-text">Satyabrat Divedi</span>
-              <span className=" text-xl font-bold font-DM">satyabrat@gmail.com</span>
+              <span className=" text-5xl font-bold super-text">{name}</span>
+              <span className=" text-xl font-bold font-DM">{email}</span>
               <div className=" grid grid-cols-3 gap-3 text-sm font-roboto ">
                 {data &&
                   data.map((item) => (
@@ -47,13 +58,10 @@ const UserData = () => {
                   ))}
               </div>
             </div>
-            <Link to={'/user_dashboard/user'} className="absolute top-[80%] text-black bg-[#9F94FF] p-3 rounded-2xl  right-[8%] duration-200 active:scale-95">
+            <Link to={"/user_dashboard/user"} className="absolute top-[80%] text-black bg-[#9F94FF] p-3 rounded-2xl  right-[8%] duration-200 active:scale-95">
               View Profile
               <span className=" px-2 ">
-                <lord-icon
-                  src="https://cdn.lordicon.com/vduvxizq.json"
-                  trigger="hover"
-                  style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                <lord-icon src="https://cdn.lordicon.com/vduvxizq.json" trigger="hover" style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}></lord-icon>
               </span>
             </Link>
           </div>
@@ -71,10 +79,7 @@ const UserData = () => {
             <Link to="/news/politics" className="px-1 text-end flex items-center  text-black boxShadow bg-[#9F94FF] rounded-xl">
               All News
               <span className=" px-1 ">
-                <lord-icon
-                  src="https://cdn.lordicon.com/vduvxizq.json"
-                  trigger="hover"
-                  style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                <lord-icon src="https://cdn.lordicon.com/vduvxizq.json" trigger="hover" style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}></lord-icon>
               </span>
             </Link>
           </div>

@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState} from "react";
 import SighInPage from "./SighInPage";
+import toast from "react-hot-toast";
 
 const Registration = () => {
   const [isSignIn, setIsSighIn] = useState(false);
@@ -21,7 +22,7 @@ const Registration = () => {
   const [select, setSelect] = useState(false);
 
   const changeHandle = (e) => {
-    setEdit({ ...edit, [e.target.name]: e.target.value });
+    setEdit({...edit, [e.target.name]: e.target.value});
   };
   const selectHandle = () => {
     setSelect(true);
@@ -45,12 +46,30 @@ const Registration = () => {
         index <= 2 && (borderRefs[index].current.style.border = "1px solid black");
       }
     });
+
+    const createData = async () => {
+      const res = await fetch("https://super-app-7dz2.onrender.com/api/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(edit),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.msg)
+        setEdit(user);
+        signUpFormRef.current.style.bottom = "110%";
+        setTimeout(() => {
+          setIsSighIn(true);
+        }, 900);
+      }else{
+        toast.error(data.msg )
+      }
+    };
+
     if (conditions.every((condition) => condition)) {
-      setEdit(user);
-      signUpFormRef.current.style.bottom = "110%";
-      setTimeout(() => {
-        setIsSighIn(true);
-      }, 900);
+      createData();
     }
   };
   return (
@@ -99,8 +118,7 @@ const Registration = () => {
                   By clicking on Sign up. you agree to Superapp <span className=" text-[#72DB73] cursor-pointer">Terms and Conditions of Use</span>
                 </div>
                 <div className="font-roboto mt-2 text-[.7rem] text-start">
-                  To learn more about how Superapp collects, uses, shares and protects your personal data please head Superapp{" "}
-                  <span className=" cursor-pointer text-[#72DB73]">Privacy Policy</span>
+                  To learn more about how Superapp collects, uses, shares and protects your personal data please head Superapp <span className=" cursor-pointer text-[#72DB73]">Privacy Policy</span>
                 </div>
               </div>
               <div className=" text-start border-b borderw w-[80%] mt-4">

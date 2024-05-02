@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import img from "../assets/image14.png";
+import toast from "react-hot-toast";
 
 const UserDetails = () => {
   const navigate = useNavigate();
 
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const getData = localStorage.getItem("items");
-  const parseData = JSON.parse(getData);
 
   const fetchUser = async () => {
     const res = await fetch(`https://super-app-7dz2.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
     const data = await res.json();
-    console.log(data.data);
     setName(data.data.name);
     setEmail(data.data.email);
     setPassword(data.data.password);
@@ -25,34 +22,33 @@ const UserDetails = () => {
     fetchUser();
   }, []);
 
-
-  const deleteHandle=()=>{
-    const cnf =  confirm("Are you sure you want to delete your account");
-    console.log(cnf)
+  const deleteHandle = async () => {
+    const cnf = confirm("Are you sure you want to delete your account");
     if (cnf) {
-      fetch(`https://super-app-7dz2.onrender.com/api/delete`, {
+      const res = await fetch(`https://super-app-7dz2.onrender.com/api/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data === "user has deleted") {
-            localStorage.removeItem("isLogin");
-            navigate('/');
-          }
-        });
+        body: JSON.stringify({email}),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data);
+        localStorage.removeItem("isLogin");
+        navigate("/");
+      }else{
+        toast.error(data);
+      
+      }
     }
-  }
+  };
   const logoutHandle = () => {
-    const cnf =  confirm("Are you sure you want to log Out");
-    console.log(cnf)
+    const cnf = confirm("Are you sure you want to log Out");
+    console.log(cnf);
     if (cnf) {
       localStorage.removeItem("isLogin");
-      navigate('/');
+      navigate("/");
     }
   };
   return (
@@ -65,7 +61,8 @@ const UserDetails = () => {
                 src="https://cdn.lordicon.com/alinocam.json"
                 trigger="hover"
                 colors="primary:black"
-                style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}
+              ></lord-icon>
               Back
             </span>
           </button>
@@ -81,7 +78,8 @@ const UserDetails = () => {
                   src="https://cdn.lordicon.com/wpyrrmcq.json"
                   trigger="hover"
                   colors="primary:red"
-                  style={{ width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                  style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}
+                ></lord-icon>
                 Delete Data
               </span>
             </button>
@@ -92,7 +90,8 @@ const UserDetails = () => {
                 src="https://cdn.lordicon.com/ysopsmtv.json"
                 trigger="hover"
                 colors="primary:white"
-                style={{ width: "30px", height: "30px", backgroundColor: "transparent", translate: "0px 4px" }}></lord-icon>
+                style={{width: "30px", height: "30px", backgroundColor: "transparent", translate: "0px 4px"}}
+              ></lord-icon>
             </span>
           </span>
         </div>
