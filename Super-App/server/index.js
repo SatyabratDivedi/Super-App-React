@@ -6,7 +6,7 @@ import route from './routes/loginRoutes.js';
 
 const app = express();
 app.use(cors({
-    origin: 'https://super-app-7dz2.onrender.com'
+    origin: 'https://super-app-demo.vercel.app'
 }));
 app.use(express.json());
 dotenv.config();
