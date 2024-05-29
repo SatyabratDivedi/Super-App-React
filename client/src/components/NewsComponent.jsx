@@ -1,92 +1,99 @@
-import React, {useEffect, useState} from "react";
-import {Link, Outlet, useMatch, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react"
+import {Link, Outlet, useMatch, useParams} from "react-router-dom"
 
-import businessImg from "../assets/business.png";
-import entertainmentImg from "../assets/entertain.png"; 
-import technologyImg from "../assets/technology.png";
-import scienceImg from "../assets/science.png";
-import sportsImg from "../assets/sports.png";
-import healthImg from "../assets/health.png";
-import politicsImg from "../assets/politics.png";
-import educationImg from "../assets/education.png";
+import businessImg from "../assets/business.png"
+import entertainmentImg from "../assets/entertain.png"
+import technologyImg from "../assets/technology.png"
+import scienceImg from "../assets/science.png"
+import sportsImg from "../assets/sports.png"
+import healthImg from "../assets/health.png"
+import politicsImg from "../assets/politics.png"
+import educationImg from "../assets/education.png"
 
-// import ndtvImg from "../assets/NDTV.png";
-// import favImg from "../assets/favicon.ico";
-// import mintImg from "../assets/livemint.png";
-// import teluguImg from "../assets/123telgu.png";
-// import pinkvillaImg from "../assets/pinkvilla.png";
-// import bbcImg from "../assets/bbc.png";
-// import toiImg from "../assets/toi.png";
-// import bLifeImg from "../assets/blife.png";
-// import hTimesImg from "../assets/htimes.png";
-// import quintImg from "../assets/q.png";
-// import expressImg from "../assets/express.png";
-// import odishaImg from "../assets/odisha.png";
-// import news18Img from "../assets/news18.png";
-// import moneycontrollImg from "../assets/moneycontroll.jpg";
-// import theHinduImg from "../assets/theHindu.png";
-// import indiaToday from "../assets/indiatoday.png";
-// import abpLive from "../assets/ABP_LIVE.webp";
-// import TeamBHP from "../assets/Team-BHP.png";
-// import {useDispatch, useSelector} from "react-redux";
-// import {decrement, increment} from "../store/pageSlice";
-import toast from "react-hot-toast";
+import ndtvImg from "../assets/NDTV.png"
+import favImg from "../assets/favicon.ico"
+import mintImg from "../assets/livemint.png"
+import teluguImg from "../assets/123telgu.png"
+import pinkvillaImg from "../assets/pinkvilla.png"
+import bbcImg from "../assets/bbc.png"
+import toiImg from "../assets/toi.png"
+import bLifeImg from "../assets/blife.png"
+import hTimesImg from "../assets/htimes.png"
+import quintImg from "../assets/q.png"
+import expressImg from "../assets/express.png"
+import odishaImg from "../assets/odisha.png"
+import news18Img from "../assets/news18.png"
+import moneycontrollImg from "../assets/moneycontroll.jpg"
+import theHinduImg from "../assets/theHindu.png"
+import indiaToday from "../assets/indiatoday.png"
+import abpLive from "../assets/ABP_LIVE.webp"
+import TeamBHP from "../assets/Team-BHP.png"
+import {useDispatch, useSelector} from "react-redux"
+import {decrement, increment} from "../store/pageSlice"
+import toast from "react-hot-toast"
+import polites from "./../HardCodedNewsApi/politesApi.js"
+import entertainment from "./../HardCodedNewsApi/entertainmentApi.js"
+import sports from "./../HardCodedNewsApi/sports.js"
+import technology from "./../HardCodedNewsApi/technology.js"
+import business from "./../HardCodedNewsApi/business.js"
+import health from "./../HardCodedNewsApi/health.js"
+import science from "./../HardCodedNewsApi/science.js"
 
 const NewsComponent = () => {
-  const [articles, setArticles] = useState();
-  // const [articlesLength, setArticlesLength] = useState();
-  const [defaultImg, setDefaultImg] = useState();
-  const match = useMatch("/news/:category/:title");
-  const {category} = useParams();
-  // const receivePage = useSelector((state) => state.page.value);
-  // const dispatch = useDispatch();
+  const [articles, setArticles] = useState()
+  const [articlesLength, setArticlesLength] = useState()
+  const [api, setApi] = useState()
+  const [defaultImg, setDefaultImg] = useState()
+  const match = useMatch("/news/:category/:title")
+  const {category} = useParams()
+  const receivePage = useSelector((state) => state.page.value)
+  const dispatch = useDispatch()
 
-  const [edit, setEdit] = useState("");
+  const [edit, setEdit] = useState("")
 
   const editClickHandler = (e) => {
-    setEdit(e.target.value);
-  };
+    setEdit(e.target.value)
+  }
 
-  const fetchNews = async () => {
-    // const res = await fetch(`https://newsdata.io/api/1/news?apikey=pub_4195082b54ab7fdd21d1ef1f2710ff7a33fd1&country=in&language=en&category=${category} `);
-    const data = await res.json();
-    console.log(data.results);
-    setArticles(data.results);
-    // setArticlesLength(data.totalResults);
-  };
+  // const fetchNews = async () => {
+  //   const res = await fetch(`https://newsdata.io/api/1/news?apikey=pub_4195082b54ab7fdd21d1ef1f2710ff7a33fd1&country=in&language=en&category=${category} `);
+  //   const data = await res.json();
+  //   console.log(data.results);
+  //   setArticles(data.result)
+  // };
 
-  // const mainArticleLength = Math.ceil(articlesLength / 20);
+  const mainArticleLength = Math.ceil(articlesLength / 20)
 
   useEffect(() => {
-    fetchNews();
-
-    const myPromise = fetchNews();
-
-    toast.promise(myPromise, {
-      loading: "Loading",
-      success: "Got the data",
-      error: "Error when fetching",
-    });
-    window.scrollTo(0, 0);
+    setArticles(polites)
+    setArticlesLength(polites.totalResults)
+    window.scrollTo(0, 0)
     switch (category) {
       case "politics":
-        return setDefaultImg(politicsImg);
+        setApi(polites)
+        return setDefaultImg(politicsImg)
       case "Health":
-        return setDefaultImg(healthImg);
+        setApi(health)
+        return setDefaultImg(healthImg)
       case "Sports":
-        return setDefaultImg(sportsImg);
+        setApi(sports)
+        return setDefaultImg(sportsImg)
       case "Science":
-        return setDefaultImg(scienceImg);
+        setApi(science)
+        return setDefaultImg(scienceImg)
       case "business":
-        return setDefaultImg(businessImg);
+        setApi(business)
+        return setDefaultImg(businessImg)
       case "entertainment":
-        return setDefaultImg(entertainmentImg);
+        setApi(entertainment)
+        return setDefaultImg(entertainmentImg)
       case "Technology":
-        return setDefaultImg(technologyImg);
+        setApi(technology)
+        return setDefaultImg(technologyImg)
       default:
-        return setDefaultImg(educationImg);
+        return setDefaultImg(educationImg)
     }
-  }, [category]);
+  }, [category])
 
   // const profileImg = (name) => {
   //   switch (name) {
@@ -138,17 +145,10 @@ const NewsComponent = () => {
       ) : (
         <div>
           <div className=" flex w-[100%] bg-gray-500 justify-center items-center pb-2 ">
-            <input
-              onChange={(e) => editClickHandler(e)}
-              className=" w-[23%] outline-none text-black rounded-3xl text-[.8rem] font-roboto bg-[#dfe3f1] flex flex-col items-center justify-center"
-              type="text"
-              name="edit"
-              value={edit}
-              placeholder="Title search"
-            />
+            <input onChange={(e) => editClickHandler(e)} className=" w-[23%] outline-none text-black rounded-3xl text-[.8rem] font-roboto bg-[#dfe3f1] flex flex-col items-center justify-center" type="text" name="edit" value={edit} placeholder="Title search" />
           </div>
           <div className="px-24 py-6 flex gap-5 flex-wrap justify-around bg-black text-white ">
-            {articles?.map((item) => (
+            {api?.map((item) => (
               <Link to={`/news/${category}/${item.title}`} key={item.title} className=" relative hover:scale-105 duration-200 border bg-[#dfe3f1]  text-black rounded-lg w-[250px] h-[270px] ">
                 <div className=" absolute shadow-xl top-[47%] left-[40%] w-[40px] bg-white  p-[.4rem] rounded-full">
                   <img className=" rounded-2xl" src={item.source_icon} alt="" />
@@ -169,23 +169,18 @@ const NewsComponent = () => {
             ))}
           </div>
 
-          {/* <div className=" bg-black   px-24 flex justify-between">
+          <div className=" bg-black   px-24 flex justify-between">
             <button disabled={receivePage <= 1} onClick={() => dispatch(decrement())} className={` ${receivePage <= 1 ? "bg-red-400" : "bg-blue-400"} border rounded-md px-2 my-3`}>
               Previous
             </button>
-            <button
-              disabled={mainArticleLength <= receivePage}
-              onClick={() => dispatch(increment())}
-              className={` ${mainArticleLength <= receivePage ? "bg-red-400" : "bg-blue-400"}  border rounded-md px-2 my-3`}
-            >
+            <button disabled={mainArticleLength <= receivePage} onClick={() => dispatch(increment())} className={` ${mainArticleLength <= receivePage ? "bg-red-400" : "bg-blue-400"}  border rounded-md px-2 my-3`}>
               Next
             </button>
-          </div> */}
-
+          </div>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default NewsComponent;
+export default NewsComponent
