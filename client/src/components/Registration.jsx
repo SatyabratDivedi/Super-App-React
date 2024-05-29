@@ -48,7 +48,7 @@ const Registration = () => {
     });
 
     const createData = async () => {
-      const res = await fetch("https://super-app-7dz2.onrender.com/api/create", {
+      const res = await fetch("https://super-app-1.onrender.com/api/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -40,7 +40,7 @@ const SighInPage = ({signInFormRef, setIsSighIn}) => {
     });
 
     const sighInData = async () => {
-      const res = await fetch("https://super-app-7dz2.onrender.com/api/login", {
+      const res = await fetch("https://super-app-1.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

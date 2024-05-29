@@ -11,7 +11,7 @@ const UserDetails = () => {
   const [password, setPassword] = useState("");
 
   const fetchUser = async () => {
-    const res = await fetch(`https://super-app-7dz2.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
+    const res = await fetch(`https://super-app-1.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
     const data = await res.json();
     setName(data.data.name);
     setEmail(data.data.email);
@@ -25,7 +25,7 @@ const UserDetails = () => {
   const deleteHandle = async () => {
     const cnf = confirm("Are you sure you want to delete your account");
     if (cnf) {
-      const res = await fetch(`https://super-app-7dz2.onrender.com/api/delete`, {
+      const res = await fetch(`https://super-app-1.onrender.com/api/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

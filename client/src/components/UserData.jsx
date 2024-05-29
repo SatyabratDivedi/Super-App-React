@@ -13,7 +13,7 @@ const UserData = () => {
   const parseData = JSON.parse(getData);
 
   const fetchUser = async () => {
-    const res = await fetch(`https://super-app-7dz2.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
+    const res = await fetch(`https://super-app-1.onrender.com/api/getOneUser/${localStorage.getItem("userId")}`);
     const data = await res.json();
     setName(data.data.name);
     setEmail(data.data.email);
