@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, Outlet, useMatch, useParams} from "react-router-dom";
 
 import businessImg from "../assets/business.png";
-import entertainmentImg from "../assets/entertain.png";
+import entertainmentImg from "../assets/entertain.png"; 
 import technologyImg from "../assets/technology.png";
 import scienceImg from "../assets/science.png";
 import sportsImg from "../assets/sports.png";
