@@ -1,15 +1,18 @@
 import mongoose from "mongoose";
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 import dotenv from "dotenv";
 import route from "./routes/loginRoutes.js";
 
 const app = express();
-// app.use(
-//   cors({
-//     origin: "https://super-app-demo.vercel.app",
-//   })
-// );
+app.use(
+  cors({
+    origin:[
+      'https://super-app-demo.vercel.app',
+      'http://localhost:5173'
+    ],
+  })
+);
 app.use(express.json());
 dotenv.config();
 app.use("/api", route);
