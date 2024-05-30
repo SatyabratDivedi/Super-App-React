@@ -24,7 +24,7 @@ const NewsPage = () => {
           <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => ` text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/politics`}>
             Politics
           </NavLink>
-          <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/business`}>
+          <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/Business`}>
             Business
           </NavLink>
           <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/entertainment`}>
