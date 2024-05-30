@@ -21,13 +21,13 @@ const NewsPage = () => {
           <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => ` hidden text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to="/news/allNews">
             AllNews
           </NavLink>
-          <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => ` text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/politics`}>
+          <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => ` text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/Politics`}>
             Politics
           </NavLink>
           <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/Business`}>
             Business
           </NavLink>
-          <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/entertainment`}>
+          <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/Entertainment`}>
             Entertainment
           </NavLink>
           <NavLink onClick={()=> dispatch(valOne())}  className={({ isActive }) => `text-lg ${isActive && "text-[#72db73]"} font-bold font-DM `} to={`/news/Technology`}>

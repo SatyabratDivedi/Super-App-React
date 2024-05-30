@@ -40,7 +40,7 @@ const NewsDetails = () => {
     // fetchData();
 
     switch (category) {
-      case "politics":
+      case "Politics":
         setArticles(polites)
         return setDefaultImg(politicsImg)
       case "Health":
@@ -52,10 +52,10 @@ const NewsDetails = () => {
       case "Science":
         setArticles(science)
         return setDefaultImg(scienceImg)
-      case "business":
+      case "Business":
         setArticles(business)
         return setDefaultImg(businessImg)
-      case "entertainment":
+      case "Entertainment":
         setArticles(entertainment)
         return setDefaultImg(entertainmentImg)
       case "Technology":

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useLoaderData, useMatch } from "react-router-dom";
+import { Link, Outlet, useMatch } from "react-router-dom";
 import defaultImg from "../assets/entertain.png";
 
 import ndtvImg from "../assets/NDTV.png";

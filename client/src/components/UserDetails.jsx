@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useLoaderData, useNavigate} from 'react-router-dom';
 import img from '../assets/image14.png';
 import toast from 'react-hot-toast';

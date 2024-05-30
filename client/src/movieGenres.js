@@ -5,9 +5,6 @@ import pic4 from "./assets/science.png";
 import pic5 from "./assets/sports.png";
 import pic6 from "./assets/health.png";
 import pic7 from "./assets/politics.png";
-import pic8 from "./assets/lifestyle.png";
-import pic9 from "./assets/education.png";
-["Politics", "Entertainment", "Sports", "Business", "Crime", "Technology", "Science", "Lifestyle", "Education"];
 
 const movies = [
   {
@@ -18,7 +15,7 @@ const movies = [
   },
   {
     id: "2",
-    name: "Entertain",
+    name: "Entertainment",
     image: pic2,
     bgCol: "#d7a4ff",
   },
@@ -51,18 +48,6 @@ const movies = [
     name: "Politics",
     image: pic7,
     bgCol: "#FF4ADE",
-  },
-  {
-    id: "8",
-    name: "Lifestyle",
-    image: pic8,
-    bgCol: "#E61E32",
-  },
-  {
-    id: "9",
-    name: "Education",
-    image: pic9,
-    bgCol: "#6CD061",
   },
 ];
 
