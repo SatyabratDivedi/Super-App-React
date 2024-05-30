@@ -16,6 +16,8 @@ import UserDetails from "./components/UserDetails.jsx";
 import {store} from "./store/store.js";
 import {Provider} from "react-redux";
 import {Toaster} from "react-hot-toast";
+import {UserDetailsLoader} from './components/UserDetails.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user_dashboard/user",
+    loader: UserDetailsLoader,
     element: <ProctactedRoute Component={UserDetails} />,
   },
   {
@@ -62,7 +65,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <Toaster position="top-right" reverseOrder={false} />
+    <Toaster position="top-right" reverseOrder={true} />
     <RouterProvider router={router} />
   </Provider>
 );

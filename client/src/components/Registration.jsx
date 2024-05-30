@@ -1,51 +1,51 @@
-import React, {useRef, useState} from "react";
-import SighInPage from "./SighInPage";
-import toast from "react-hot-toast";
+import React, {useRef, useState} from "react"
+import SighInPage from "./SighInPage"
+import toast from "react-hot-toast"
 
 const Registration = () => {
-  const [isSignIn, setIsSighIn] = useState(false);
+  const [isSignIn, setIsSighIn] = useState(false)
   const errorRefs = Array(4)
     .fill()
-    .map(() => useRef());
+    .map(() => useRef())
   const borderRefs = Array(3)
     .fill()
-    .map(() => useRef());
-  const signUpFormRef = useRef();
-  const signInFormRef = useRef();
+    .map(() => useRef())
+  const signUpFormRef = useRef()
+  const signInFormRef = useRef()
 
   const user = {
     name: "",
     email: "",
     password: "",
-  };
-  const [edit, setEdit] = useState(user);
-  const [select, setSelect] = useState(false);
+  }
+  const [edit, setEdit] = useState(user)
+  const [select, setSelect] = useState(false)
 
   const changeHandle = (e) => {
-    setEdit({...edit, [e.target.name]: e.target.value});
-  };
+    setEdit({...edit, [e.target.name]: e.target.value})
+  }
   const selectHandle = () => {
-    setSelect(true);
-  };
+    setSelect(true)
+  }
   const signInSlideHandle = () => {
-    signUpFormRef.current.style.bottom = "110%";
+    signUpFormRef.current.style.bottom = "110%"
     setTimeout(() => {
-      setIsSighIn(true);
-    }, 900);
-  };
+      setIsSighIn(true)
+    }, 900)
+  }
 
   const submitHandle = (e) => {
-    e.preventDefault();
-    const conditions = [edit.name, edit.email, edit.password, select];
+    e.preventDefault()
+    const conditions = [edit.name, edit.email, edit.password, select]
     conditions.forEach((condition, index) => {
       if (!condition) {
-        errorRefs[index].current.style.display = "block";
-        index <= 2 && (borderRefs[index].current.style.border = "1px solid red");
+        errorRefs[index].current.style.display = "block"
+        index <= 2 && (borderRefs[index].current.style.border = "1px solid red")
       } else if (condition) {
-        errorRefs[index].current.style.display = "none";
-        index <= 2 && (borderRefs[index].current.style.border = "1px solid black");
+        errorRefs[index].current.style.display = "none"
+        index <= 2 && (borderRefs[index].current.style.border = "1px solid black")
       }
-    });
+    })
 
     const createData = async () => {
       const res = await fetch("https://super-app-1.onrender.com/api/create", {
@@ -54,24 +54,42 @@ const Registration = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(edit),
-      });
-      const data = await res.json();
+      })
+      const data = await res.json()
       if (res.ok) {
-        toast.success(data.msg)
-        setEdit(user);
-        signUpFormRef.current.style.bottom = "110%";
+        setTimeout(()=>{
+          toast.success(data.msg)
+        }, 400)
+        setEdit(user)
+        signUpFormRef.current.style.bottom = "110%"
         setTimeout(() => {
-          setIsSighIn(true);
-        }, 900);
-      }else{
-        toast.error(data.msg )
+          setIsSighIn(true)
+        }, 900)
+      } else {
+        setTimeout(()=>{
+          toast.error(data.msg)
+        }, 600)
       }
-    };
+    }
+
+    // const myPromise = createData()
+
+    // toast.promise(myPromise, {
+    //   loading: "I am using free server Please wait few seconds..",
+    //   success: 'successfully connected to backend',
+    //   error: 'Something went wrong',
+    // })
 
     if (conditions.every((condition) => condition)) {
-      createData();
+      const myPromise = createData()
+
+      toast.promise(myPromise, {
+        loading: "I am using free server Please wait few seconds..",
+        success: 'connected to backend',
+        error: 'Something went wrong',
+      })
     }
-  };
+  }
   return (
     <>
       <div className="mainHeader bgBlack">
@@ -133,7 +151,7 @@ const Registration = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Registration;
+export default Registration
