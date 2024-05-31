@@ -8,7 +8,7 @@
 <img src="/ReadmeFile/Website Screenshot 1.png" alt="Website">
 
 2. if anyone access without login 
-<video src="/ReadmeFile/output(compress-video-online.com).mp4" autoplay muted></video>
+<img src="/ReadmeFile/output(compress-video-online (1).gif" autoplay muted></img>
 
 3. after login you have to choose your choice of news
 <img src="/ReadmeFile/Website Screenshot 2.png" alt="Website">
@@ -30,4 +30,4 @@
 <img src="/ReadmeFile/Website Screenshot 4.png" alt="Website">
 
 9. if anyone put wrong route then this is error page 
-<video src="/ReadmeFile/output(compress-video-online.com) (1).mp4" autoplay muted></video>
+<img src="/ReadmeFile/output(compress-video-online.gif" autoplay muted></img>
