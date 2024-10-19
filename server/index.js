@@ -8,7 +8,7 @@ const app = express();
 app.use(
   cors({
     origin:[
-      'https://super-app-demo.vercel.app',
+      'https://super-app.skdivedi.me',
       'http://localhost:5173'
     ],
   })
