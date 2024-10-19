@@ -48,6 +48,7 @@ const Registration = () => {
     })
 
     const createData = async () => {
+      const toastId = toast.loading("Creating Account...")
       const res = await fetch("https://super-app-1.onrender.com/api/create", {
         method: "POST",
         headers: {
@@ -58,7 +59,7 @@ const Registration = () => {
       const data = await res.json()
       if (res.ok) {
         setTimeout(()=>{
-          toast.success(data.msg)
+          toast.success(data.msg, {id: toastId})
         }, 400)
         setEdit(user)
         signUpFormRef.current.style.bottom = "110%"
@@ -67,18 +68,10 @@ const Registration = () => {
         }, 900)
       } else {
         setTimeout(()=>{
-          toast.error(data.msg)
+          toast.error(data, {id: toastId})
         }, 600)
       }
     }
-
-    // const myPromise = createData()
-
-    // toast.promise(myPromise, {
-    //   loading: "I am using free server Please wait few seconds..",
-    //   success: 'successfully connected to backend',
-    //   error: 'Something went wrong',
-    // })
 
     if (conditions.every((condition) => condition)) {
       const myPromise = createData()

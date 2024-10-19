@@ -40,6 +40,7 @@ const SighInPage = ({signInFormRef, setIsSighIn}) => {
     });
 
     const sighInData = async () => {
+      const toastId = toast.loading("Checking...");
       const res = await fetch("https://super-app-1.onrender.com/api/login", {
         method: "POST",
         headers: {
@@ -49,13 +50,13 @@ const SighInPage = ({signInFormRef, setIsSighIn}) => {
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success(data.msg);
+        toast.success(data.msg, {id: toastId});
         setEdit(user);
         navigate("/dashboard");
         localStorage.setItem("isLogin", true);
         localStorage.setItem("userId", data.user._id);  
       }else{
-        toast.error(data);
+        toast.error(data, {id: toastId});
       }
     };
 
