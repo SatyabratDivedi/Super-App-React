@@ -76,7 +76,7 @@ const UserData = () => {
                 ) : null;
               })}
             </div>
-            <Link to="/news/politics" className="px-1 text-end flex items-center  text-black boxShadow bg-[#9F94FF] rounded-xl">
+            <Link to="/news/Politics" className="px-1 text-end flex items-center  text-black boxShadow bg-[#9F94FF] rounded-xl">
               All News
               <span className=" px-1 ">
                 <lord-icon src="https://cdn.lordicon.com/vduvxizq.json" trigger="hover" style={{width: "20px", height: "20px", backgroundColor: "transparent", translate: "0px 4px"}}></lord-icon>
